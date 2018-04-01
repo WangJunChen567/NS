@@ -1,0 +1,135 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="utility">
+      <UniqueIdentifier>{24000239-f77b-49a9-b151-3857cc6865db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="core">
+      <UniqueIdentifier>{ee6760d4-79a3-43a2-abd3-84cdd811ebf2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting">
+      <UniqueIdentifier>{a67d8149-bad8-4b8d-8be7-b1f098739af7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\random">
+      <UniqueIdentifier>{50c0d6cc-2d8c-4555-8aa4-346593a18f8b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\benchmark">
+      <UniqueIdentifier>{a17eba5d-812c-4b88-bf18-79d2e29be165}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\corner_sort">
+      <UniqueIdentifier>{273db77b-4051-456d-80ef-532aec0def3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\deductive_sort">
+      <UniqueIdentifier>{20392faf-5510-440a-9586-301868abd7ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\ENS_NDT">
+      <UniqueIdentifier>{0043d9ef-cb7b-41b0-a6a0-bc05d510cf68}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\fast_sort">
+      <UniqueIdentifier>{9388a47d-d971-45af-8235-7cb2b165741a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\filter_sort">
+      <UniqueIdentifier>{dcdb6411-7bae-4990-8b06-4f319acd9103}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\link_sort">
+      <UniqueIdentifier>{70ed3b6f-9d8b-4557-8d72-9655eae795e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="utility\nondominated_sorting\T_ENS">
+      <UniqueIdentifier>{89e1e4fd-cbb9-4a12-9cb7-6aa88c7489ca}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="core\definition.h">
+      <Filter>core</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\functional.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\myexcept.h">
+      <Filter>utility</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\random\extreal.h">
+      <Filter>utility\random</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\random\newran.h">
+      <Filter>utility\random</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\corner_sort\corner_sort.h">
+      <Filter>utility\nondominated_sorting\corner_sort</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\deductive_sort\deductive_sort.h">
+      <Filter>utility\nondominated_sorting\deductive_sort</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\ENS_NDT.h">
+      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDNode.h">
+      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDSplit.h">
+      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDTree.h">
+      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\fast_sort\fast_sort.h">
+      <Filter>utility\nondominated_sorting\fast_sort</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\filter_sort\filter_sort.h">
+      <Filter>utility\nondominated_sorting\filter_sort</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\filter_sort\quick_sort.h">
+      <Filter>utility\nondominated_sorting\filter_sort</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\link_sort\link_sort.h">
+      <Filter>utility\nondominated_sorting\link_sort</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\T_ENS\T_ENS.h">
+      <Filter>utility\nondominated_sorting\T_ENS</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\T_ENS\quick_sort.h">
+      <Filter>utility\nondominated_sorting\T_ENS</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\quick_sort.h">
+      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\benchmark\benchmark.h">
+      <Filter>utility\nondominated_sorting\benchmark</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="utility\random\extreal.cpp">
+      <Filter>utility\random</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\random\newran.cpp">
+      <Filter>utility\random</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\corner_sort\corner_sort.cpp">
+      <Filter>utility\nondominated_sorting\corner_sort</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\deductive_sort\deductive_sort.cpp">
+      <Filter>utility\nondominated_sorting\deductive_sort</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\ENS_NDT\ENS_NDT.cpp">
+      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\fast_sort\fast_sort.cpp">
+      <Filter>utility\nondominated_sorting\fast_sort</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\filter_sort\filter_sort.cpp">
+      <Filter>utility\nondominated_sorting\filter_sort</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\link_sort\link_sort.cpp">
+      <Filter>utility\nondominated_sorting\link_sort</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\T_ENS\T_ENS.cpp">
+      <Filter>utility\nondominated_sorting\T_ENS</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\main.cpp">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\benchmark\benchmark.cpp">
+      <Filter>utility\nondominated_sorting\benchmark</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
