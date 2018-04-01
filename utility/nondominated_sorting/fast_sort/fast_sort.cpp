@@ -7,11 +7,6 @@
 std::mutex l_mutex;
 #endif // USING_CONCURRENT
 
-#ifdef USING_MULTI_THREAD
-#include <mutex>
-std::mutex mutex1;
-#endif // USING_MULTI_THREAD
-
 namespace NS {
 	int fast_sort(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement)
 	{
@@ -85,15 +80,8 @@ namespace NS {
 			m_curRank++;
 			if (stop_count == 0) {
 				int time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
-#ifdef USING_MULTI_THREAD
-				mutex1.lock();
 				measurement.first += time;
 				measurement.second += NumComp;
-				mutex1.unlock();
-#else
-				measurement.first += time;
-				measurement.second += NumComp;
-#endif // USING_MULTI_THREAD
 				return m_curRank;
 			}
 		}

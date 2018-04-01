@@ -7,13 +7,6 @@
 #include "deductive_sort/deductive_sort.h"
 #include "benchmark/benchmark.h"
 
-//#define USING_MULTI_THREAD
-
-#ifdef USING_MULTI_THREAD
-#include <thread>
-#endif // USING_MULTI_THREAD
-
-
 //*******************************************************************
 // The test for comparing different Nondominated Sorting Algorithms
 //*******************************************************************
@@ -25,11 +18,8 @@ int main() {
 	const int num_run(50);
 
 	std::ofstream outfile;
-#ifdef USING_MULTI_THREAD
 	outfile.open("result/ComparisonBetweenAlgorithms/benchmark1_multi_thread.csv");
-#else
 	outfile.open("result/ComparisonBetweenAlgorithms/benchmark1.csv");
-#endif USING_MULTI_THREAD
 
 	outfile << "num sol,num obj,Fast Sort,Corner Sort,Deductive Sort,T-ENS,ENS-NDT,Filter Sort" << std::endl;
 	for (int num_sol : nums_sol) {
@@ -40,67 +30,6 @@ int main() {
 			std::pair<int, int> meas_Fast_Sort({ 0,0 }), meas_Corner_Sort({ 0,0 }), meas_Deductive_Sort({ 0,0 }), meas_T_ENS({ 0,0 }), meas_ENS_NDT({ 0,0 }), meas_Filter_Sort({ 0,0 });
 			std::vector<int> rank_Fast_Sort(num_sol), rank_Corner_Sort(num_sol), rank_Deductive_Sort(num_sol), rank_T_ENS(num_sol), rank_ENS_NDT(num_sol), rank_Filter_Sort(num_sol);
 
-
-#ifdef USING_MULTI_THREAD
-			std::vector<std::vector<std::vector<double>>> datas(num_run);
-			for (int i = 0; i < num_run; ++i)
-				generator.read_data(datas[i], i);
-			std::vector<std::thread> thrd;
-
-			for (int j = 0; j < 2; ++j) {
-				for (int i = j * (num_run / 2); i < (j+1)*num_run / 2; ++i) {
-					thrd.push_back(std::thread(NS::fast_sort, std::cref(datas[i]), std::ref(rank_Fast_Sort), std::ref(meas_Fast_Sort)));
-				}
-				for (auto& t : thrd)
-					t.join();
-				thrd.clear();
-			}
-
-			for (int j = 0; j < 2; ++j) {
-				for (int i = j * (num_run / 2); i < (j + 1)*num_run / 2; ++i) {
-					thrd.push_back(std::thread(NS::corner_sort, std::cref(datas[i]), std::ref(rank_Corner_Sort), std::ref(meas_Corner_Sort)));
-				}
-				for (auto& t : thrd)
-					t.join();
-				thrd.clear();
-			}
-
-			for (int j = 0; j < 2; ++j) {
-				for (int i = j * (num_run / 2); i < (j + 1)*num_run / 2; ++i) {
-					thrd.push_back(std::thread(NS::deductive_sort, std::cref(datas[i]), std::ref(rank_Deductive_Sort), std::ref(meas_Deductive_Sort)));
-				}
-				for (auto& t : thrd)
-					t.join();
-				thrd.clear();
-			}
-
-			for (int j = 0; j < 2; ++j) {
-				for (int i = j * (num_run / 2); i < (j + 1)*num_run / 2; ++i) {
-					thrd.push_back(std::thread(NS::T_ENS, std::cref(datas[i]), std::ref(rank_T_ENS), std::ref(meas_T_ENS),-1));
-				}
-				for (auto& t : thrd)
-					t.join();
-				thrd.clear();
-			}
-
-			for (int j = 0; j < 2; ++j) {
-				for (int i = j * (num_run / 2); i < (j + 1)*num_run / 2; ++i) {
-					thrd.push_back(std::thread(NS::ENS_NDT::Sort, std::cref(datas[i]), std::ref(meas_ENS_NDT)));
-				}
-				for (auto& t : thrd)
-					t.join();
-				thrd.clear();
-			}
-
-			for (int j = 0; j < 2; ++j) {
-				for (int i = j * (num_run / 2); i < (j + 1)*num_run / 2; ++i) {
-					thrd.push_back(std::thread(NS::filter_sort, std::cref(datas[i]), std::ref(rank_Filter_Sort), std::ref(meas_Filter_Sort)));
-				}
-				for (auto& t : thrd)
-					t.join();
-				thrd.clear();
-			}
-#else
 			std::vector<std::vector<double>> data;
 			for (int runID = 0; runID < num_run; ++runID) {
 				generator.read_data(data, runID);
@@ -111,7 +40,6 @@ int main() {
 				rank_ENS_NDT =  NS::ENS_NDT::Sort(data, meas_ENS_NDT);
 				NS::filter_sort(data, rank_Filter_Sort, meas_Filter_Sort);
 			}
-#endif // USING_MULTI_THREAD
 
 			outfile << "," << meas_Fast_Sort.first / num_run;
 			outfile << "," << meas_Corner_Sort.first / num_run;

@@ -1,10 +1,5 @@
 #include "corner_sort.h"
 
-#ifdef USING_MULTI_THREAD
-#include <mutex>
-std::mutex mutex2;
-#endif // USING_MULTI_THREAD
-
 namespace NS {
 	unsigned int min_obj(const double ** POP, unsigned int obj_index, cs_node ** head, cs_node ** mh, int * comp, const unsigned int m, int& NumComp) {
 		unsigned int i = 0, cur;
@@ -227,14 +222,7 @@ namespace NS {
 		delete[] POP;
 
 		int time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
-#ifdef USING_MULTI_THREAD
-		mutex2.lock();
 		measurement.first += time;
 		measurement.second += NumComp;
-		mutex2.unlock();
-#else
-		measurement.first += time;
-		measurement.second += NumComp;
-#endif // USING_MULTI_THREAD
 	}
 }

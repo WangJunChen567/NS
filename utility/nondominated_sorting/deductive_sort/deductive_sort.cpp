@@ -2,11 +2,6 @@
 #include <string.h>
 #include "../../functional.h"
 
-#ifdef USING_MULTI_THREAD
-#include <mutex>
-std::mutex mutex3;
-#endif // USING_MULTI_THREAD
-
 namespace NS {
 	void deductive_sort(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement){
 
@@ -54,15 +49,8 @@ namespace NS {
 		delete[] F;
 
 		int time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
-#ifdef USING_MULTI_THREAD
-		mutex3.lock();
 		measurement.first += time;
 		measurement.second += NumComp;
-		mutex3.unlock();
-#else
-		measurement.first += time;
-		measurement.second += NumComp;
-#endif // USING_MULTI_THREAD
 
 	}
 }

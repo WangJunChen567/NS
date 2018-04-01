@@ -1,7 +1,7 @@
 #ifndef ENS_NDT_NDSPLIT_H
 #define ENS_NDT_NDSPLIT_H
 
-#include "quick_sort.h"
+#include "../quick_sort.h"
 #include <string>
 #include <vector>
 #include <memory>

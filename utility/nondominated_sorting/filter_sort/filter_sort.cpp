@@ -1,6 +1,6 @@
 #include "filter_sort.h"
 #include "../../functional.h"
-#include "quick_sort.h"
+#include "../quick_sort.h"
 #include <limits.h>
 #include <fstream>
 #include <sstream>
@@ -10,11 +10,6 @@
 #ifdef USING_CONCURRENT
 #include <thread>
 #endif // USING_CONCURRENT
-
-#ifdef USING_MULTI_THREAD
-#include <mutex>
-std::mutex mutex6;
-#endif // USING_MULTI_THREAD
 
 namespace NS {
 	void filter_sort(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement){
@@ -186,15 +181,8 @@ namespace NS {
 		delete[] InCurRankCandiate;
 
 		int time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
-#ifdef USING_MULTI_THREAD
-		mutex6.lock();
 		measurement.first += time;
 		measurement.second += NumComp;
-		mutex6.unlock();
-#else
-		measurement.first += time;
-		measurement.second += NumComp;
-#endif // USING_MULTI_THREAD
 
 		std::stringstream os;
 		os << "result/seqSum.csv";

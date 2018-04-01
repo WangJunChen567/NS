@@ -1,10 +1,5 @@
 #include "ENS_NDT.h"
 
-#ifdef USING_MULTI_THREAD
-#include <mutex>
-std::mutex mutex5;
-#endif // USING_MULTI_THREAD
-
 namespace NS {
 	std::vector<int> ENS_NDT::Sort(const std::vector<std::vector<double>>& individuals, std::pair<int, int>& measurement)
 	{
@@ -20,15 +15,8 @@ namespace NS {
 		std::vector<int> result_rank = NondominatedSort(individuals, individuals[0].size(), NumComp);
 
 		int time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
-#ifdef USING_MULTI_THREAD
-		mutex5.lock();
 		measurement.first += time;
 		measurement.second += NumComp;
-		mutex5.unlock();
-#else
-		measurement.first += time;
-		measurement.second += NumComp;
-#endif // USING_MULTI_THREAD
 
 		return result_rank;
 

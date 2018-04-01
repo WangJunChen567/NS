@@ -78,23 +78,17 @@
     <ClInclude Include="utility\nondominated_sorting\filter_sort\filter_sort.h">
       <Filter>utility\nondominated_sorting\filter_sort</Filter>
     </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\filter_sort\quick_sort.h">
-      <Filter>utility\nondominated_sorting\filter_sort</Filter>
-    </ClInclude>
     <ClInclude Include="utility\nondominated_sorting\link_sort\link_sort.h">
       <Filter>utility\nondominated_sorting\link_sort</Filter>
     </ClInclude>
     <ClInclude Include="utility\nondominated_sorting\T_ENS\T_ENS.h">
       <Filter>utility\nondominated_sorting\T_ENS</Filter>
     </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\T_ENS\quick_sort.h">
-      <Filter>utility\nondominated_sorting\T_ENS</Filter>
-    </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\quick_sort.h">
-      <Filter>utility\nondominated_sorting\ENS_NDT</Filter>
-    </ClInclude>
     <ClInclude Include="utility\nondominated_sorting\benchmark\benchmark.h">
       <Filter>utility\nondominated_sorting\benchmark</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\quick_sort.h">
+      <Filter>utility\nondominated_sorting</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

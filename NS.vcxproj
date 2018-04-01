@@ -29,12 +29,10 @@
     <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDNode.h" />
     <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDSplit.h" />
     <ClInclude Include="utility\nondominated_sorting\ENS_NDT\NDTree.h" />
-    <ClInclude Include="utility\nondominated_sorting\ENS_NDT\quick_sort.h" />
     <ClInclude Include="utility\nondominated_sorting\fast_sort\fast_sort.h" />
     <ClInclude Include="utility\nondominated_sorting\filter_sort\filter_sort.h" />
-    <ClInclude Include="utility\nondominated_sorting\filter_sort\quick_sort.h" />
     <ClInclude Include="utility\nondominated_sorting\link_sort\link_sort.h" />
-    <ClInclude Include="utility\nondominated_sorting\T_ENS\quick_sort.h" />
+    <ClInclude Include="utility\nondominated_sorting\quick_sort.h" />
     <ClInclude Include="utility\nondominated_sorting\T_ENS\T_ENS.h" />
     <ClInclude Include="utility\random\extreal.h" />
     <ClInclude Include="utility\random\newran.h" />

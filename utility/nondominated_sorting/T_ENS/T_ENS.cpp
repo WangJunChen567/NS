@@ -1,13 +1,8 @@
 #include "T_ENS.h"
 #include <iostream>
 #include <time.h>
-#include "quick_sort.h"
+#include "../quick_sort.h"
 #include <limits.h>
-
-#ifdef USING_MULTI_THREAD
-#include <mutex>
-std::mutex mutex4;
-#endif // USING_MULTI_THREAD
 
 namespace NS {
 	void T_ENS(const std::vector<std::vector<double>>& Pop, std::vector<int>& te_rank, std::pair<int, int>& measurement, int nSort) {
@@ -178,15 +173,7 @@ namespace NS {
 			te_rank[i] = FrontNo[FrontNo_index[i]];
 
 		int time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
-#ifdef USING_MULTI_THREAD
-		mutex4.lock();
 		measurement.first += time;
 		measurement.second += NumComp;
-		mutex4.unlock();
-#else
-		measurement.first += time;
-		measurement.second += NumComp;
-#endif // USING_MULTI_THREAD
-
 	}
 }
