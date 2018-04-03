@@ -54,11 +54,7 @@ namespace NS {
 		fs_node* m_begin;
 		fs_node* m_end;
 	};
-	void filter_sort(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
-	void filter_sort_c1(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
-	void filter_sort_c2(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
-	void filter_sort_c3(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
-	void NumCandi_and_SeqSum(const std::vector<std::vector<double>>& data, const std::vector<int>& rank);
+	int filter_sort(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
 #ifdef USING_CONCURRENT
 	void ParallelFilter(const std::vector<int>&& candidates, std::vector<LS_list>& SeqByObj_Lists, const std::vector<int>& MaxIdxs, const std::vector<int>& MinIdxs, const int N, const std::vector<std::vector<int>>& SolStas, bool* InCurRankCandiate);
 	void ParallelQuickSort(const std::vector<std::vector<double>>& data, std::vector<std::vector<int>>& SeqByObj, const std::vector<int>&& ObjIdxs);

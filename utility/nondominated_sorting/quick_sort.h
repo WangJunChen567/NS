@@ -54,7 +54,7 @@ namespace NS {
 	}
 
 	template<typename T>
-	int quick_sort(const std::vector<std::vector<T>>& data, std::vector<int>& index, const int obj_idx = 0, int low = -1, int high = - 1, bool ascending = true) {
+	int quick_sort(const std::vector<std::vector<T>>& data, std::vector<int>& index, const int obj_idx, int low = -1, int high = - 1, bool ascending = true) {
 		if (low == -1) {
 			low = 0;
 			high = data.size() - 1;

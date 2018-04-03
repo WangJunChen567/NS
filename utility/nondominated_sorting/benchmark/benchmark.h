@@ -63,14 +63,14 @@ namespace NS {
 		void update_data();
 	};
 
-	// data with user-defined number of fronts with concave fronts (generate data nonuniformly and quickly)
+	// data with user-defined number of fronts with concave fronts (generate data nonuniformly but quickly)
 	class benchmark4 final : public fixed_num_front {
 	public:
 		benchmark4(int num_sol, int num_obj, int num_fro, double rank_seed);
 		void update_data();
 	};
 
-	// data with user-defined number of fronts with convex fronts (generate data nonuniformly and quickly)
+	// data with user-defined number of fronts with convex fronts (generate data nonuniformly but quickly)
 	class benchmark5 final : public fixed_num_front {
 	public:
 		benchmark5(int num_sol, int num_obj, int num_fro, double rank_seed);

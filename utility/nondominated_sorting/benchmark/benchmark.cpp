@@ -1,4 +1,5 @@
 #include "benchmark.h"
+#include "../../functional.h"
 
 #ifdef _WIN32  
 #include <direct.h>  
@@ -20,6 +21,7 @@ namespace NS {
 	void data_generator::output_data(const std::stringstream& path)
 	{
 		std::ofstream outputfile(path.str());
+		outputfile.precision(18);
 		for (int i = 0; i < m_num_obj - 1; ++i)
 			outputfile << "obj" << i + 1 << ",";
 		outputfile << "obj" << m_num_obj << std::endl;
@@ -336,9 +338,6 @@ namespace NS {
 		for (int k = 1; k < m_num_fro + 1; ++k)
 			temp += pow(k, (m_num_obj - 1));
 		int rest(m_num_sol);
-		//for (int k = 1; k < m_num_fro; ++k) {
-		//	rest -= num_each_fro[k - 1] = static_cast<int>(pow(k, (m_num_obj - 1)) * m_num_sol / temp) + 1;
-		//}
 		for (int k = 1; k < m_num_fro; ++k) {
 			rest -= num_each_fro[k - 1] = m_num_sol/m_num_fro;
 		}

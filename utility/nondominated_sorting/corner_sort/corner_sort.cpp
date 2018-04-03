@@ -206,8 +206,6 @@ namespace NS {
 	void corner_sort(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement) {
 
 		std::chrono::time_point<std::chrono::system_clock> Total_start_time;
-		std::chrono::microseconds Total_time_cost;
-		Total_time_cost = Total_time_cost.zero();
 		int NumComp(0);
 		Total_start_time = std::chrono::system_clock::now();
 

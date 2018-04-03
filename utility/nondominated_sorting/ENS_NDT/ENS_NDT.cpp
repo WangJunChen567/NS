@@ -5,8 +5,6 @@ namespace NS {
 	{
 
 		std::chrono::time_point<std::chrono::system_clock> Total_start_time;
-		std::chrono::microseconds Total_time_cost;
-		Total_time_cost = Total_time_cost.zero();
 		int NumComp(0);
 		Total_start_time = std::chrono::system_clock::now();
 

@@ -23,6 +23,7 @@
     <ClInclude Include="utility\functional.h" />
     <ClInclude Include="utility\myexcept.h" />
     <ClInclude Include="utility\nondominated_sorting\benchmark\benchmark.h" />
+    <ClInclude Include="utility\nondominated_sorting\best_order_sort\best_order_sort.h" />
     <ClInclude Include="utility\nondominated_sorting\corner_sort\corner_sort.h" />
     <ClInclude Include="utility\nondominated_sorting\deductive_sort\deductive_sort.h" />
     <ClInclude Include="utility\nondominated_sorting\ENS_NDT\ENS_NDT.h" />
@@ -39,6 +40,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\nondominated_sorting\benchmark\benchmark.cpp" />
+    <ClCompile Include="utility\nondominated_sorting\best_order_sort\best_order_sort.cpp" />
     <ClCompile Include="utility\nondominated_sorting\corner_sort\corner_sort.cpp" />
     <ClCompile Include="utility\nondominated_sorting\deductive_sort\deductive_sort.cpp" />
     <ClCompile Include="utility\nondominated_sorting\ENS_NDT\ENS_NDT.cpp" />
@@ -112,9 +114,12 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>Disabled</Optimization>
+      <Optimization>Custom</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <StackReserveSize>200000000</StackReserveSize>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -132,7 +137,7 @@
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
-      <Optimization>MaxSpeed</Optimization>
+      <Optimization>Full</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>

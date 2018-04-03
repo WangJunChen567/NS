@@ -18,6 +18,8 @@ namespace NS {
 
 		const std::size_t popsize(data.size());
 		if (popsize == 0) return 0;
+		if (rank.size() != popsize)
+			rank.resize(popsize);
 		const std::size_t objsnum(data.front().size());
 		std::vector<int> rank_(popsize);
 		std::vector<int> count(popsize);

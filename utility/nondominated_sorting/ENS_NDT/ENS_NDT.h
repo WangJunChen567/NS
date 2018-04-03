@@ -2,9 +2,9 @@
 #define ENS_NDT_H
 
 /*
-A New Algorithm Using the Non-Dominated Tree to Improve Non-Dominated Sorting
-January 2017Evolutionary Computation
-DOI10.1162/EVCO_a_00204
+Gustavsson, P., & Syberfeldt, A. (2018).
+A new algorithm using the non-dominated tree to improve non-dominated sorting.
+Evolutionary computation, 26(1), 89-116.
 */
 
 #include "NDTree.h"
