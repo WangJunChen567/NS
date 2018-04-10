@@ -19,12 +19,12 @@ namespace ENS_NDT {
             root->AddPoint(point, NumComp);
         }
 
-		bool Dominates (std::vector<double>* point, int& NumComp)
+		bool Dominates(std::vector<double>* point, int& NumComp)
 		{
 			return Dominates(point, root, NumComp);
 		}
 
-		bool Dominates (std::vector<double>* point, std::unique_ptr<NDNode>& node, int& NumComp)
+		bool Dominates(std::vector<double>* point, std::unique_ptr<NDNode>& node, int& NumComp)
 		{
 			if (node->IsBranch())
 			{

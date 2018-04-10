@@ -22,7 +22,7 @@ namespace ENS_NDT {
 
 	public:
 		NDNode(std::shared_ptr<NDSplit>& split, int bucketSize) : BucketSize(bucketSize), Split(split), Points(new std::vector<std::vector<double>*>()){}
-
+		~NDNode() { delete Points; }
 		void AddPoint(std::vector<double>* point, int& NumComp)
 		{
 			if (IsLeaf())
@@ -55,6 +55,7 @@ namespace ENS_NDT {
 		void SplitLeaf(int& NumComp)
 		{
 			std::vector<std::vector<double>*> points = *Points;
+			delete Points;
 			Points = nullptr;
 
 			for(std::vector<double>* point : points)

@@ -153,77 +153,76 @@ void NS::BestOrderSort::sortingValues()
 	allrank = mergesort.getrank();
 }
 
-void NS::BestOrderSort::extended_kung_sort_two_dimension()
-{
-	//Initialization
-	int i, j, low, high, middle;
-	double key;
-
-	rank.resize(n);//ranks of solutions
-	allrank.resize(n);
-	for (auto& row : allrank)
-		row.resize(m); //partial lexicographical ordering of x-axis values 
-	//b = new double[n];
-	std::vector<int> index(n);
-	L.resize(n);
-	for (j = 0; j<m; j++)
-	{
-		for (i = 0; i<n; i++)
-		{
-			allrank[i][j] = i;
-		}
-	}
-	mergesort.setrank(allrank);
-	mergesort.sort(0);//lexicographic sort
-	//b[0] = population[allrank[0][0]][1];//y-value of first rank solution
-	index[0] = allrank[0][0];
-	rank[allrank[0][0]] = 0; //rank of first solution is already found
-	totalfront = 1;
-
-	for (i = 1; i<n; i++)
-	{
-		s = allrank[i][0];//take the solution id
-		key = population[s][1];//the field we would consider
-
-
-							   //-------------Go over all points----------------------//
-		low = 0;
-		high = totalfront - 1;
-
-		while (high >= low)
-		{
-			middle = (low + high) / 2;
-
-			if (key < population[index[middle]][1]) //it has low rank, numerically
-			{
-				high = middle - 1;
-			}
-			else if (key > population[index[middle]][1]) //it has high rank, numerically
-			{
-				low = middle + 1;
-			}
-			else
-			{
-				if (population[index[middle]][0]<population[s][0])
-				{
-					low = middle + 1;
-				}
-				else//first objective was also same
-				{
-					low = rank[index[middle]];
-					break;
-				}
-			}
-		}
-
-		if (low == totalfront)
-		{
-			totalfront = totalfront + 1;
-		}
-		rank[s] = low;
-		index[low] = s;
-	}
-}
+//void NS::BestOrderSort::extended_kung_sort_two_dimension()
+//{
+//	//Initialization
+//	int i, j, low, high, middle;
+//	double key;
+//
+//	rank.resize(n);//ranks of solutions
+//	allrank.resize(n);
+//	for (auto& row : allrank)
+//		row.resize(m); //partial lexicographical ordering of x-axis values 
+//	std::vector<int> index(n);
+//	L.resize(n);
+//	for (j = 0; j<m; j++)
+//	{
+//		for (i = 0; i<n; i++)
+//		{
+//			allrank[i][j] = i;
+//		}
+//	}
+//	mergesort.setrank(allrank);
+//	mergesort.sort(0);//lexicographic sort
+//	//b[0] = population[allrank[0][0]][1];//y-value of first rank solution
+//	index[0] = allrank[0][0];
+//	rank[allrank[0][0]] = 0; //rank of first solution is already found
+//	totalfront = 1;
+//
+//	for (i = 1; i<n; i++)
+//	{
+//		s = allrank[i][0];//take the solution id
+//		key = population[s][1];//the field we would consider
+//
+//
+//							   //-------------Go over all points----------------------//
+//		low = 0;
+//		high = totalfront - 1;
+//
+//		while (high >= low)
+//		{
+//			middle = (low + high) / 2;
+//
+//			if (key < population[index[middle]][1]) //it has low rank, numerically
+//			{
+//				high = middle - 1;
+//			}
+//			else if (key > population[index[middle]][1]) //it has high rank, numerically
+//			{
+//				low = middle + 1;
+//			}
+//			else
+//			{
+//				if (population[index[middle]][0]<population[s][0])
+//				{
+//					low = middle + 1;
+//				}
+//				else//first objective was also same
+//				{
+//					low = rank[index[middle]];
+//					break;
+//				}
+//			}
+//		}
+//
+//		if (low == totalfront)
+//		{
+//			totalfront = totalfront + 1;
+//		}
+//		rank[s] = low;
+//		index[low] = s;
+//	}
+//}
 
 //void NS::BestOrderSort::MergeSort::setPopulation(const std::vector<std::vector<double>>& pop) {
 //	this->population = pop;

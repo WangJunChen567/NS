@@ -31,7 +31,13 @@ namespace NS {
 			void addStart(int val) {
 				start = new Node(val, start);
 			}
-			~LinkedList() { delete start; }
+			~LinkedList() {
+				while (start != nullptr) {
+					Node* last = start;
+					start = start->link;
+					delete last;
+				}
+			}
 		};
 		class MergeSort {
 		private:
@@ -70,7 +76,7 @@ namespace NS {
 		const std::vector<int>& getRank() const { return rank; }
 		const int getTotalFront() const { return totalfront; }
 	private:
-		void extended_kung_sort_two_dimension();
+		//void extended_kung_sort_two_dimension();
 	private:
 		int m1 = -1;
 		const std::vector<std::vector<double>>& population;
@@ -79,10 +85,10 @@ namespace NS {
 		std::vector<int> rank;
 		std::vector<bool> set;
 		std::vector<std::vector<LinkedList>> list;
-		std::vector<LinkedList> L;//two dimension
-		std::vector<double> b;//two dimension
+		//std::vector<LinkedList> L;//two dimension
+		//std::vector<double> b;//two dimension
 		int totalfront = 0;
-		std::vector<LinkedList> Front;
+		//std::vector<LinkedList> Front;
 		int s;
 		int n;
 		int m, m2;
