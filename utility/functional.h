@@ -69,7 +69,6 @@ namespace OFEC {
 	std::pair<dominationship, int> objective_compare(const std::vector<T>& a, const std::vector<T>& b, const std::vector<optimization_mode> &mode)  {
 		if (a.size() != b.size()) 
 			return std::make_pair(dominationship::Non_comparable, 0);
-
 		int comparisons = 0;
 		int better = 0, worse = 0, equal = 0;
 		for (decltype(a.size()) i = 0; i<a.size(); ++i) {

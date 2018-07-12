@@ -9,9 +9,10 @@
 
 namespace NS {
 	int fast_sort(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
-#ifdef USING_CONCURRENT
+
+	int fast_sort_p(int numTask,  const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
+
 	void ParallelCompare(int popsize, const std::vector<int>&& ks, const std::vector<std::vector<double>>& data, std::vector<int>& rank_, std::vector<int>& count, std::vector<std::vector<int>>& cset);
-#endif // USING_CONCURRENT
 }
 
 

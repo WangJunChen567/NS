@@ -1,7 +1,7 @@
 #ifndef ENS_NDT_NDSPLIT_H
 #define ENS_NDT_NDSPLIT_H
 
-#include "../quick_sort.h"
+#include "../merge_sort.h"
 #include <string>
 #include <vector>
 #include <memory>
@@ -41,7 +41,7 @@ namespace ENS_NDT {
 
 			std::vector<int>* temp_index = new std::vector<int>;
 			std::vector<std::vector<double>>* temp_points = new std::vector<std::vector<double>>;
-			NumComp += NS::quick_sort(points, *temp_index, dimension, startIndex, startIndex + count - 1);
+			NS::merge_sort(points, *temp_index, dimension, startIndex, startIndex + count - 1);
 			temp_points->assign(points.begin() + startIndex, points.begin() + startIndex + count);
 			for (int i = 0; i < count; ++i)
 				points[i + startIndex] = temp_points->at(temp_index->at(i)-startIndex);

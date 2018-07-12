@@ -44,7 +44,7 @@ namespace NS {
 	protected:
 		const int m_num_fro;
 	public:
-		fixed_num_front(const std::string& name, int num_sol, int num_obj, int num_fro, double rand_seed);
+		fixed_num_front(const std::string& name, int num_sol, int num_obj, int num_rank, double rand_seed);
 		void output_data_set(int num_data);
 		void read_data(std::vector<std::vector<double>>& data, int number);
 	};
@@ -52,28 +52,28 @@ namespace NS {
 	// data with user-defined number of fronts with concave fronts (generate data uniformly and slowly)
 	class benchmark2 final : public fixed_num_front {
 	public:
-		benchmark2(int num_sol, int num_obj, int num_fro, double rand_seed);
+		benchmark2(int num_sol, int num_obj, int num_rank, double rand_seed);
 		void update_data();
 	};
 
 	// data with user-defined number of fronts with convex fronts (generate data uniformly and slowly)
 	class benchmark3 final : public fixed_num_front {
 	public:
-		benchmark3(int num_sol, int num_obj, int num_fro, double rand_seed);
+		benchmark3(int num_sol, int num_obj, int num_rank, double rand_seed);
 		void update_data();
 	};
 
 	// data with user-defined number of fronts with concave fronts (generate data nonuniformly but quickly)
 	class benchmark4 final : public fixed_num_front {
 	public:
-		benchmark4(int num_sol, int num_obj, int num_fro, double rank_seed);
+		benchmark4(int num_sol, int num_obj, int num_rank, double rank_seed);
 		void update_data();
 	};
 
 	// data with user-defined number of fronts with convex fronts (generate data nonuniformly but quickly)
 	class benchmark5 final : public fixed_num_front {
 	public:
-		benchmark5(int num_sol, int num_obj, int num_fro, double rank_seed);
+		benchmark5(int num_sol, int num_obj, int num_rank, double rank_seed);
 		void update_data();
 	};
 }

@@ -1,15 +1,13 @@
 #include "T_ENS.h"
 #include <iostream>
 #include <time.h>
-#include "../quick_sort.h"
+#include "../merge_sort.h"
 #include <limits.h>
 
 namespace NS {
 	void T_ENS(const std::vector<std::vector<double>>& Pop, std::vector<int>& te_rank, std::pair<int, int>& measurement, int nSort) {
 
 		std::chrono::time_point<std::chrono::system_clock> Total_start_time;
-		std::chrono::microseconds Total_time_cost;
-		Total_time_cost = Total_time_cost.zero();
 		int NumComp(0);
 		Total_start_time = std::chrono::system_clock::now();
 
@@ -25,7 +23,7 @@ namespace NS {
 											 objective value, if two solutions have the same value on the first
 											 objective value, sort them according to the next objective value*/
 		std::vector<int> rank;
-		NumComp += quick_sort(Pop, rank, 0);
+		merge_sort(Pop, rank, 0);
 		std::vector<std::vector<double>> Population(N);
 		for (int i = 0; i < N; ++i)
 			Population[i] = Pop[rank[i]];

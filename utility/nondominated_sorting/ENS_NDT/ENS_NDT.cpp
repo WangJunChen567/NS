@@ -1,4 +1,5 @@
 #include "ENS_NDT.h"
+#include "../merge_sort.h"
 
 namespace NS {
 	int ENS_NDT_sort(const std::vector<std::vector<double>>& individuals, std::vector<int>& rank, std::pair<int, int>& measurement)
@@ -9,13 +10,13 @@ namespace NS {
 
 		if (individuals.size() == 0)
 			return 0;
-		int num_fro = ENS_NDT::NondominatedSort(individuals, individuals[0].size(), NumComp, rank);
+		int num_rank = ENS_NDT::NondominatedSort(individuals, individuals[0].size(), NumComp, rank);
 
 		int time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
 		measurement.first += time;
-		measurement.second += NumComp;
+		//measurement.second += NumComp;
 
-		return num_fro;
+		return num_rank;
 	}
 
 	int ENS_NDT::NondominatedSort(const std::vector<std::vector<double>>& P, int k, int& NumComp, std::vector<int>& rank)
@@ -23,7 +24,7 @@ namespace NS {
 		// Create a copy of the population and sort it in reverse lexicographic order
 		std::vector<std::vector<double>> S(P.size());
 		std::vector<int> temp_index;
-		NumComp += NS::quick_sort(P, temp_index, k - 1);
+		NS::merge_sort(P, temp_index, k - 1);
 		for (int i = 0; i < P.size(); ++i)
 			S[i] = P[temp_index[i]];
 
@@ -81,7 +82,7 @@ namespace NS {
 	{
 		std::chrono::time_point<std::chrono::system_clock> start_time;
 		for (int i = 0; i < k; ++i) {
-			NumComp++;
+			//NumComp++;
 			if (a[i] != b[i]) {
 				return false;
 			}

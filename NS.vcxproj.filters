@@ -40,6 +40,9 @@
     <Filter Include="utility\nondominated_sorting\best_order_sort">
       <UniqueIdentifier>{e85ac7c7-6f9d-4272-9dbd-20697f68928c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="utility\nondominated_sorting\DCNS_BSS">
+      <UniqueIdentifier>{5ba87caa-11c6-4b57-89fd-4be1c03f60a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="core\definition.h">
@@ -90,12 +93,16 @@
     <ClInclude Include="utility\nondominated_sorting\benchmark\benchmark.h">
       <Filter>utility\nondominated_sorting\benchmark</Filter>
     </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\quick_sort.h">
-      <Filter>utility\nondominated_sorting</Filter>
-    </ClInclude>
     <ClInclude Include="utility\nondominated_sorting\best_order_sort\best_order_sort.h">
       <Filter>utility\nondominated_sorting\best_order_sort</Filter>
     </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\merge_sort.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\DCNS_BSS\DCNS_BSS.h">
+      <Filter>utility\nondominated_sorting\DCNS_BSS</Filter>
+    </ClInclude>
+    <ClInclude Include="utility\nondominated_sorting\list.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">
@@ -133,6 +140,9 @@
     </ClCompile>
     <ClCompile Include="utility\nondominated_sorting\best_order_sort\best_order_sort.cpp">
       <Filter>utility\nondominated_sorting\best_order_sort</Filter>
+    </ClCompile>
+    <ClCompile Include="utility\nondominated_sorting\DCNS_BSS\DCNS_BSS.cpp">
+      <Filter>utility\nondominated_sorting\DCNS_BSS</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

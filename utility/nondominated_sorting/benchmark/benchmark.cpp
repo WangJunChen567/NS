@@ -59,6 +59,8 @@ namespace NS {
 		std::stringstream path;
 		path << "result/" << m_name << "/sol" << m_num_sol << "_obj" << m_num_obj << "/data_" << number << ".csv";
 		std::ifstream inputfile(path.str());
+		if (!inputfile)
+			throw("No such data file exist @ data_generator::read_data.");
 		std::string head;
 		std::getline(inputfile, head);
 		data.clear();
@@ -102,8 +104,8 @@ namespace NS {
 		}
 	}
 
-	fixed_num_front::fixed_num_front(const std::string & name, int num_sol, int num_obj, int num_fro, double rand_seed)
-		: data_generator(name, num_sol, num_obj, rand_seed), m_num_fro(num_fro) {}
+	fixed_num_front::fixed_num_front(const std::string & name, int num_sol, int num_obj, int num_rank, double rand_seed)
+		: data_generator(name, num_sol, num_obj, rand_seed), m_num_fro(num_rank) {}
 
 	void fixed_num_front::output_data_set(int num_data)
 	{
@@ -123,6 +125,8 @@ namespace NS {
 		std::stringstream path;
 		path << "result/" << m_name << "/sol" << m_num_sol << "_obj" << m_num_obj << "_fro" << m_num_fro << "/data_" << number << ".csv";
 		std::ifstream inputfile(path.str());
+		if (!inputfile)
+			throw("No such data file exist @ fixed_num_front::read_data.");
 		std::string head;
 		std::getline(inputfile, head);
 		data.resize(m_num_sol);
@@ -140,7 +144,7 @@ namespace NS {
 		inputfile.close();
 	}
 
-	benchmark2::benchmark2(int num_sol, int num_obj, int num_fro, double rand_seed) : fixed_num_front("benchmark2",num_sol,num_obj,num_fro,rand_seed) {}
+	benchmark2::benchmark2(int num_sol, int num_obj, int num_rank, double rand_seed) : fixed_num_front("benchmark2",num_sol,num_obj,num_rank,rand_seed) {}
 
 	//void benchmark2::update_data()
 	//{
@@ -258,7 +262,7 @@ namespace NS {
 		shuffle_data();
 	}
 
-	benchmark3::benchmark3(int num_sol, int num_obj, int num_fro, double rand_seed) : fixed_num_front("benchmark3", num_sol, num_obj, num_fro, rand_seed) {}
+	benchmark3::benchmark3(int num_sol, int num_obj, int num_rank, double rand_seed) : fixed_num_front("benchmark3", num_sol, num_obj, num_rank, rand_seed) {}
 
 	void benchmark3::update_data()
 	{
@@ -327,7 +331,7 @@ namespace NS {
 		shuffle_data();
 	}
 
-	benchmark4::benchmark4(int num_sol, int num_obj, int num_fro, double rank_seed) : fixed_num_front("benchmark4", num_sol, num_obj, num_fro, rank_seed) {}
+	benchmark4::benchmark4(int num_sol, int num_obj, int num_rank, double rank_seed) : fixed_num_front("benchmark4", num_sol, num_obj, num_rank, rank_seed) {}
 
 	void benchmark4::update_data()
 	{
@@ -397,7 +401,7 @@ namespace NS {
 		shuffle_data();
 	}
 
-	benchmark5::benchmark5(int num_sol, int num_obj, int num_fro, double rank_seed) : fixed_num_front("benchmark5", num_sol, num_obj, num_fro, rank_seed) {}
+	benchmark5::benchmark5(int num_sol, int num_obj, int num_rank, double rank_seed) : fixed_num_front("benchmark5", num_sol, num_obj, num_rank, rank_seed) {}
 
 	void benchmark5::update_data()
 	{
