@@ -254,8 +254,8 @@
 
 int main() {
 	NS::benchmark2 generator(10000,3,8,0.5);
-	std::vector<std::vector<double>> data;
-	generator.read_data(data, 0);
+	generator.update_data();
+	std::vector<std::vector<double>> data(generator.get_data());
 	std::vector<int> rank, rank_1;
 	std::pair<int, int> meas({ 0,0 }), meas_1({ 0,0 });
 	int numTask(1);

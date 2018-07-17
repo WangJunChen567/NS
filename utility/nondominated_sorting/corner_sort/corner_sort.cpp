@@ -20,88 +20,88 @@ namespace NS {
 		measurement.second += NumComp;
 	}
 
-	void corner_sort_p(const int numTask, const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement)	{
-		std::chrono::time_point<std::chrono::system_clock> Total_start_time;
-		Total_start_time = std::chrono::system_clock::now();
+	//void corner_sort_p(const int numTask, const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement)	{
+	//	std::chrono::time_point<std::chrono::system_clock> Total_start_time;
+	//	Total_start_time = std::chrono::system_clock::now();
 
-		const size_t N = data.size(); // Number of solution
-		if (N == 0) throw("Data is empty");
-		const size_t M = data.front().size(); // Number of obective
-		//if (rank.size() != N) rank.resize(N);
-		rank = std::vector<int>(N, -1);
-		std::vector<std::vector<int>> SeqByObj(M);
-		for (int i = 0; i < M; ++i) {
-			merge_sort(data, SeqByObj[i], i);
-		}
-		std::vector<List> SeqByObj_Lists(M); // Put vectors 'SeqByObj' into Lists
-		std::vector<std::vector<Node*>> PosInObjLists(N); // PosInObjLists[i] stores solution[i]'s all Nodes' addresses
-		for (int i = 0; i < M; ++i) {
-			for (int SolIdx : SeqByObj[i])
-				PosInObjLists[SolIdx].push_back(SeqByObj_Lists[i].push_back(SolIdx));
-		}
-		size_t num_ranked(0);
-		size_t cur_rank_num(0);
-		while (num_ranked < N) {
-			size_t obj_selected(0);
-			std::vector<List> SeqByObjLists_copy(M);
-			std::vector<std::vector<Node*>> PosInObjLists_copy(N, std::vector<Node*>(M));
-			for (size_t j = 0; j < M; j++) {
-				for (const Node* iter = SeqByObj_Lists[j].begin(); iter != nullptr; iter = iter->m_next) {
-					PosInObjLists_copy[iter->m_value][j] = SeqByObjLists_copy[j].push_back(iter->m_value);
-				}
-			}
-			while (!SeqByObjLists_copy[0].empty()) {
-				size_t corner = SeqByObjLists_copy[obj_selected%M].begin()->m_value;
-				num_ranked++;
-				rank[corner] = cur_rank_num;
-				for (size_t j = 0; j < M; ++j) {
-					SeqByObj_Lists[j].erase(PosInObjLists[corner][j]);
-					SeqByObjLists_copy[j].erase(PosInObjLists_copy[corner][j]);
-				}
-				
-				std::vector<size_t> tocheck;
-				for (Node* iter = SeqByObjLists_copy[0].begin(); iter != nullptr; iter = iter->m_next) 
-					tocheck.push_back(iter->m_value);
+	//	const size_t N = data.size(); // Number of solution
+	//	if (N == 0) throw("Data is empty");
+	//	const size_t M = data.front().size(); // Number of obective
+	//	//if (rank.size() != N) rank.resize(N);
+	//	rank = std::vector<int>(N, -1);
+	//	std::vector<std::vector<int>> SeqByObj(M);
+	//	for (int i = 0; i < M; ++i) {
+	//		merge_sort(data, SeqByObj[i], i);
+	//	}
+	//	std::vector<List> SeqByObj_Lists(M); // Put vectors 'SeqByObj' into Lists
+	//	std::vector<std::vector<Node*>> PosInObjLists(N); // PosInObjLists[i] stores solution[i]'s all Nodes' addresses
+	//	for (int i = 0; i < M; ++i) {
+	//		for (int SolIdx : SeqByObj[i])
+	//			PosInObjLists[SolIdx].push_back(SeqByObj_Lists[i].push_back(SolIdx));
+	//	}
+	//	size_t num_ranked(0);
+	//	size_t cur_rank_num(0);
+	//	while (num_ranked < N) {
+	//		size_t obj_selected(0);
+	//		std::vector<List> SeqByObjLists_copy(M);
+	//		std::vector<std::vector<Node*>> PosInObjLists_copy(N, std::vector<Node*>(M));
+	//		for (size_t j = 0; j < M; j++) {
+	//			for (const Node* iter = SeqByObj_Lists[j].begin(); iter != nullptr; iter = iter->m_next) {
+	//				PosInObjLists_copy[iter->m_value][j] = SeqByObjLists_copy[j].push_back(iter->m_value);
+	//			}
+	//		}
+	//		while (!SeqByObjLists_copy[0].empty()) {
+	//			size_t corner = SeqByObjLists_copy[obj_selected%M].begin()->m_value;
+	//			num_ranked++;
+	//			rank[corner] = cur_rank_num;
+	//			for (size_t j = 0; j < M; ++j) {
+	//				SeqByObj_Lists[j].erase(PosInObjLists[corner][j]);
+	//				SeqByObjLists_copy[j].erase(PosInObjLists_copy[corner][j]);
+	//			}
+	//			
+	//			std::vector<size_t> tocheck;
+	//			for (Node* iter = SeqByObjLists_copy[0].begin(); iter != nullptr; iter = iter->m_next) 
+	//				tocheck.push_back(iter->m_value);
 
-				std::vector<size_t> remove;
-				for (size_t idx : tocheck) {
-					bool dominate(true);
-					for (size_t j = 0; j < M; j++) {
-						if (data[idx][j] < data[corner][j]) {
-							dominate = false;
-							break;
-						}
-					}
-					if (dominate) {
-						remove.push_back(idx);
-					}
-				}
+	//			std::vector<size_t> remove;
+	//			for (size_t idx : tocheck) {
+	//				bool dominate(true);
+	//				for (size_t j = 0; j < M; j++) {
+	//					if (data[idx][j] < data[corner][j]) {
+	//						dominate = false;
+	//						break;
+	//					}
+	//				}
+	//				if (dominate) {
+	//					remove.push_back(idx);
+	//				}
+	//			}
 
-				//int TaskSize = tocheck.size();
-				//int num_task = numTask;
-				//if (num_task > TaskSize) num_task = TaskSize;
-				//std::vector<std::vector<size_t>> removes(num_task);
-				//std::vector<std::thread> thrd;
-				//for (int i = 0; i < num_task; ++i) {
-				//	std::vector<int> idxs;
-				//	for (int k = i; k < TaskSize; k += num_task)
-				//		idxs.push_back(tocheck[k]);
-				//	thrd.push_back(std::thread(Corner_Sort::parallel_check, corner, M, std::cref(data), std::move(idxs), std::ref(removes[i])));
-				//}
-				//for (auto&t : thrd) t.join();
+	//			//int TaskSize = tocheck.size();
+	//			//int num_task = numTask;
+	//			//if (num_task > TaskSize) num_task = TaskSize;
+	//			//std::vector<std::vector<size_t>> removes(num_task);
+	//			//std::vector<std::thread> thrd;
+	//			//for (int i = 0; i < num_task; ++i) {
+	//			//	std::vector<int> idxs;
+	//			//	for (int k = i; k < TaskSize; k += num_task)
+	//			//		idxs.push_back(tocheck[k]);
+	//			//	thrd.push_back(std::thread(Corner_Sort::parallel_check, corner, M, std::cref(data), std::move(idxs), std::ref(removes[i])));
+	//			//}
+	//			//for (auto&t : thrd) t.join();
 
-				//for (auto& remove : removes)
-					for (size_t idx : remove) 
-						for (size_t j = 0; j < M; ++j)
-							SeqByObjLists_copy[j].erase(PosInObjLists_copy[idx][j]);
-				obj_selected++;
-			}
-			cur_rank_num++;
-		}
+	//			//for (auto& remove : removes)
+	//				for (size_t idx : remove) 
+	//					for (size_t j = 0; j < M; ++j)
+	//						SeqByObjLists_copy[j].erase(PosInObjLists_copy[idx][j]);
+	//			obj_selected++;
+	//		}
+	//		cur_rank_num++;
+	//	}
 
-		int time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
-		measurement.first += time;
-	}
+	//	int time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
+	//	measurement.first += time;
+	//}
 
 	void Corner_Sort::parallel_check(const size_t corner, const size_t M, const std::vector<std::vector<double>>& data, const std::vector<int> && idxs, std::vector<size_t>& remove) {
 		for (size_t idx : idxs) {

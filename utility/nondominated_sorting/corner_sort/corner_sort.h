@@ -45,7 +45,7 @@ namespace NS{
 	};
 
 	void corner_sort(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
-	void corner_sort_p(const int numTask, const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
+	//void corner_sort_p(const int numTask, const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
 
 	namespace Corner_Sort {
 		void parallel_check(const size_t corner, const size_t M, const std::vector<std::vector<double>>& data, const std::vector<int> && idxs, std::vector<size_t>& remove);
