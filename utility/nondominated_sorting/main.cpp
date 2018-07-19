@@ -11,6 +11,7 @@
 
 #include "merge_sort.h"
 #include <chrono>
+#include <cstring>
 
 //*******************************************************************
 // The test for comparing different Nondominated Sorting Algorithms
@@ -252,11 +253,27 @@
 //	outfile << num_obj << "," << num_rank << "," << (double)(eta_c / 30) / 50 << "," << (double)(eta_f / 30) / 50 << std::endl;
 //}
 
-int main() {
-	NS::benchmark2 generator(10000,3,8,0.5);
-	generator.update_data();
-	std::vector<std::vector<double>> data(generator.get_data());
+std::vector<std::vector<double>> generate_filter_sort_worst_case(int n) {
+    n = 3 * (n / 3);
+    std::vector<std::vector<double>> rv;
+    for (int i = 1; i <= n; i += 3) {
+        rv.push_back({2 * i, 0});
+        rv.push_back({i, i});
+        rv.push_back({0, 2 * i});
+    }
+    return rv;
+}
+
+int main(int argc, char *argv[]) {
+    std::vector<std::vector<double>> data;
 	std::vector<int> rank, rank_1;
+	if (argc > 2 && !strcmp("filter-worst", argv[1])) {
+        data = generate_filter_sort_worst_case(atoi(argv[2]));
+	} else {
+    	NS::benchmark2 generator(10000,3,8,0.5);
+	    generator.update_data();
+	    data = generator.get_data();
+	}
 	std::pair<int, int> meas({ 0,0 }), meas_1({ 0,0 });
 	int numTask(1);
 	NS::filter_sort(data, rank, meas);
