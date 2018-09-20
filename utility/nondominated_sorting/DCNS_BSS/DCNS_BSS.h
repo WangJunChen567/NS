@@ -3,6 +3,11 @@
 
 #include <chrono>
 #include <vector>
+#include <thread>
+#include <condition_variable>
+#include <atomic>
+#include <utility>
+#include <math.h>
 
 /*
 Mishra, S., Saha, S., & Mondal, S. (2016, July). 
@@ -12,7 +17,7 @@ In Evolutionary Computation (CEC), 2016 IEEE Congress on (pp. 4297-4304). IEEE.
 
 namespace NS {
 	void DCNS(const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
-	void DCNS_p(int numTask, const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
+	void DCNS_p(const int numTask, const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement);
 
 	class DCNS_Implementation {
 	private:
@@ -149,13 +154,18 @@ namespace NS {
 		void sort_p(int numTask, std::vector<int>& rank);
 	private:
 		void Merge_BSS(int i, int j);
-		void parallel_Merge_BSS(const int i, const int n, const std::vector<int> && js);
+		void producer(const int treeLevel, const int n, std::vector<std::vector<int>>& tasks, const int numTask, int& x, int & layer);
+		void consumer(const int treeLevel, const int n, const std::vector<std::vector<int>>& tasks, const size_t taskid, const int& x, const int& layer);
 		int Insert_Front_BSS(int i, int j, int q, int alpha);
 		int Insert_BSS(int i, int sol, int P, int alpha, int hfi, Gamma& gamma);
 	private:
 		std::vector<Solution> population;
 		HeapSort hs;
 		std::vector<std::vector<std::vector<int>>> arrSetNonDominatedFront;
+		std::mutex DCNS_BSS_lock;
+		std::condition_variable DCNS_BSS_assigned;
+		std::atomic<int> mergedcount;
+		std::condition_variable DCNS_BSS_merged;
 	};
 }
 

@@ -20,10 +20,9 @@ namespace NS {
 		measurement.second += NumComp;
 	}
 
-	//void corner_sort_p(const int numTask, const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement)	{
+	//void corner_sort_p(const int numTask, const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement) {
 	//	std::chrono::time_point<std::chrono::system_clock> Total_start_time;
 	//	Total_start_time = std::chrono::system_clock::now();
-
 	//	const size_t N = data.size(); // Number of solution
 	//	if (N == 0) throw("Data is empty");
 	//	const size_t M = data.front().size(); // Number of obective
@@ -58,11 +57,9 @@ namespace NS {
 	//				SeqByObj_Lists[j].erase(PosInObjLists[corner][j]);
 	//				SeqByObjLists_copy[j].erase(PosInObjLists_copy[corner][j]);
 	//			}
-	//			
 	//			std::vector<size_t> tocheck;
-	//			for (Node* iter = SeqByObjLists_copy[0].begin(); iter != nullptr; iter = iter->m_next) 
+	//			for (Node* iter = SeqByObjLists_copy[0].begin(); iter != nullptr; iter = iter->m_next)
 	//				tocheck.push_back(iter->m_value);
-
 	//			std::vector<size_t> remove;
 	//			for (size_t idx : tocheck) {
 	//				bool dominate(true);
@@ -76,47 +73,44 @@ namespace NS {
 	//					remove.push_back(idx);
 	//				}
 	//			}
-
-	//			//int TaskSize = tocheck.size();
-	//			//int num_task = numTask;
-	//			//if (num_task > TaskSize) num_task = TaskSize;
-	//			//std::vector<std::vector<size_t>> removes(num_task);
-	//			//std::vector<std::thread> thrd;
-	//			//for (int i = 0; i < num_task; ++i) {
-	//			//	std::vector<int> idxs;
-	//			//	for (int k = i; k < TaskSize; k += num_task)
-	//			//		idxs.push_back(tocheck[k]);
-	//			//	thrd.push_back(std::thread(Corner_Sort::parallel_check, corner, M, std::cref(data), std::move(idxs), std::ref(removes[i])));
-	//			//}
-	//			//for (auto&t : thrd) t.join();
-
-	//			//for (auto& remove : removes)
-	//				for (size_t idx : remove) 
+	//			int TaskSize = tocheck.size();
+	//			int num_task = numTask;
+	//			if (num_task > TaskSize) num_task = TaskSize;
+	//			std::vector<std::vector<size_t>> removes(num_task);
+	//			std::vector<std::thread> thrd;
+	//			for (int i = 0; i < num_task; ++i) {
+	//				std::vector<int> idxs;
+	//				for (int k = i; k < TaskSize; k += num_task)
+	//					idxs.push_back(tocheck[k]);
+	//				thrd.push_back(std::thread(Corner_Sort::parallel_check, corner, M, std::cref(data), std::move(idxs), std::ref(removes[i])));
+	//			}
+	//			for (auto&t : thrd) t.join();
+	//			for (auto& remove : removes)
+	//				for (size_t idx : remove)
 	//					for (size_t j = 0; j < M; ++j)
 	//						SeqByObjLists_copy[j].erase(PosInObjLists_copy[idx][j]);
 	//			obj_selected++;
 	//		}
 	//		cur_rank_num++;
 	//	}
-
 	//	int time = std::chrono::duration_cast<std::chrono::microseconds>(std::chrono::system_clock::now() - Total_start_time).count();
 	//	measurement.first += time;
 	//}
 
-	void Corner_Sort::parallel_check(const size_t corner, const size_t M, const std::vector<std::vector<double>>& data, const std::vector<int> && idxs, std::vector<size_t>& remove) {
-		for (size_t idx : idxs) {
-			bool dominate(true);
-			for (size_t j = 0; j < M; j++) {
-				if (data[idx][j] < data[corner][j]) {
-					dominate = false;
-					break;
-				}
-			}
-			if (dominate) {
-				remove.push_back(idx);
-			}
-		}
-	}
+	//void Corner_Sort::parallel_check(const size_t corner, const size_t M, const std::vector<std::vector<double>>& data, const std::vector<int> && idxs, std::vector<size_t>& remove) {
+	//	for (size_t idx : idxs) {
+	//		bool dominate(true);
+	//		for (size_t j = 0; j < M; j++) {
+	//			if (data[idx][j] < data[corner][j]) {
+	//				dominate = false;
+	//				break;
+	//			}
+	//		}
+	//		if (dominate) {
+	//			remove.push_back(idx);
+	//		}
+	//	}
+	//}
 
 	CornerSort::CornerSort(const std::vector<std::vector<double>>& data) : n(data.size()), mv_comp(n,0), comp(mv_comp.data()) {
 		if (n == 0) throw("data is empty");

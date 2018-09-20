@@ -1,0 +1,3 @@
+WARNING:root:could not open file '/etc/apt/sources.list'
+
+-E: command not found
