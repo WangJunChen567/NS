@@ -12,6 +12,8 @@ namespace NS {
 		Total_start_time = std::chrono::system_clock::now();
 
 		const int N = Pop.size(); //N = population size
+		if (N == 0) return;
+		if (te_rank.size() != N) te_rank.resize(N);
 		if (nSort == -1)
 			nSort = N;
 		if (Pop.empty())
@@ -52,10 +54,10 @@ namespace NS {
 			for (std::size_t i = 0; i < N; ++i)
 				temp_col[i] = Population[i][j + 1];
 			std::vector<int> temp_index;
-			NumComp += OFEC::quick_sort(temp_col, N, temp_index);
+			OFEC::merge_sort(temp_col, N, temp_index);
 			std::vector<int> temp_index2(temp_index);
 			temp_index.clear();
-			OFEC::quick_sort(temp_index2, N, temp_index);
+			OFEC::merge_sort(temp_index2, N, temp_index);
 			for (std::size_t i = 0; i < N; ++i)
 				ORank[i][j] = -temp_index[i];
 		}
@@ -64,7 +66,7 @@ namespace NS {
 			for (std::size_t j = 0; j < M - 1; ++j)
 				temp_row[j] = ORank[i][j];
 			std::vector<int> temp_index;
-			OFEC::quick_sort(temp_row, M - 1, temp_index);
+			OFEC::merge_sort(temp_row, M - 1, temp_index);
 			for (std::size_t j = 0; j < M - 1; ++j)
 				ORank[i][j] = temp_index[j] + 1;
 		}
@@ -166,7 +168,7 @@ namespace NS {
 			}
 		}
 		std::vector<int> FrontNo_index(N);
-		OFEC::quick_sort(rank, N, FrontNo_index);
+		OFEC::merge_sort(rank, N, FrontNo_index);
 		for (std::size_t i = 0; i < FrontNo_index.size(); ++i)
 			te_rank[i] = FrontNo[FrontNo_index[i]];
 

@@ -11,16 +11,17 @@
 
 #include "merge_sort.h"
 #include <chrono>
+#include <cstring>
 
 //*******************************************************************
 // The test for comparing different Nondominated Sorting Algorithms
 //*******************************************************************
 
 //int main() {
-//	std::vector<int> nums_rank({ 1,2,3,4,5,6,7,8,9,10 });
+//	std::vector<int> nums_rank({ 1,2,3,4,5,6,7,8 });
 //	std::vector<int> nums_sol({ 10000 });
-//	std::vector<int> nums_obj({ 3,6,9 });
-//	const int num_run(5);
+//	std::vector<int> nums_obj({ 2,4,6,8 });
+//	const int num_run(30);
 //
 //	//for (int num_sol : nums_sol) {
 //	//	for (int num_obj : nums_obj) {
@@ -34,7 +35,7 @@
 //
 //	std::ofstream outfile;
 //
-//	//outfile.open("result/ComparisonBetweenAlgorithms/impact_num_sol.csv");
+//	//outfile.open("result/ComparisonBetweenAlgorithms/impact_num_obj_without_fixed_num_fro2.csv");
 //	//outfile << "num sol,num obj,num fro,Corner Sort,Deductive Sort,T-ENS,ENS-NDT,BOS,Filter Sort" << std::endl;
 //	//for (int num_sol : nums_sol) {
 //	//	for (int num_obj : nums_obj) {
@@ -54,7 +55,7 @@
 //	//			num_rank += NS::best_order_sort(data, rank_BOS, meas_BOS);
 //	//			NS::filter_sort(data, rank_Filter_Sort, meas_Filter_Sort);
 //	//		}
-//	//		//outfile << "," << num_rank / num_run;
+//	//		outfile << "," << num_rank / num_run;
 //	//		outfile << "," << meas_Corner_Sort.first / num_run;
 //	//		outfile << "," << meas_Deductive_Sort.first / num_run;
 //	//		outfile << "," << meas_T_ENS.first / num_run;
@@ -66,29 +67,28 @@
 //	//}
 //	//outfile.close();
 //
-//	outfile.open("result/ComparisonBetweenAlgorithms/poster_simulation_obj_linux.csv");
-//	outfile << "num sol,num obj,num rank,Deductive Sort,Corner Sort,T-ENS,Filter Sort" << std::endl;
+//	outfile.open("result/ComparisonBetweenAlgorithms/benchmark2_parallel_1.csv");
+//	outfile << "num sol,num obj,num fro,ENS-NDT,BOS,Filter Sort,Filter Sort(8 thread)" << std::endl;
 //	for (int num_sol : nums_sol) {
 //		for (int num_obj : nums_obj) {
 //			for (int num_rank : nums_rank) {
 //				std::cout << "benchmark2_sol" << num_sol << "_obj" << num_obj << "_fro" << num_rank << std::endl;
 //				outfile << num_sol << "," << num_obj << "," << num_rank;
 //				NS::benchmark2 generator(num_sol, num_obj, num_rank, 0.5);
-//				std::pair<int, int> meas_CS(0, 0), meas_DS(0, 0), meas_TE(0, 0), meas_FS(0, 0);
-//				std::vector<int> rank_CS(num_sol), rank_DS(num_sol), rank_TE(num_sol), rank_FS(num_sol);
+//				std::pair<int, int> meas_Filter_Sort_p({ 0,0 }),meas_ENS_NDT(0, 0), meas_BOS({ 0,0 }), meas_Filter_Sort({ 0,0 });
+//				std::vector<int> rank_Filter_Sort_p(num_sol),rank_ENS_NDT(num_sol), rank_BOS(num_sol), rank_Filter_Sort(num_sol);
 //				std::vector<std::vector<double>> data;
 //				for (int runID = 0; runID < num_run; ++runID) {
 //					generator.read_data(data, runID);
-//					NS::corner_sort(data, rank_CS, meas_CS);
-//					NS::deductive_sort(data, rank_DS, meas_DS);
-//					NS::T_ENS(data, rank_TE, meas_TE);
-//					NS::filter_sort(data, rank_FS, meas_FS);
-//					//std::cout << (rank_T_ENS == rank_ENS_NDT ? "Yes" : "No") << std::endl;
+//					NS::filter_sort_p(8, data, rank_Filter_Sort_p, meas_Filter_Sort_p);
+//					NS::ENS_NDT_sort(data, rank_ENS_NDT, meas_ENS_NDT);
+//					NS::best_order_sort(data, rank_BOS, meas_BOS);
+//					NS::filter_sort(data, rank_Filter_Sort, meas_Filter_Sort);
 //				}
-//				outfile << "," << meas_DS.first / num_run;
-//				outfile << "," << meas_CS.first / num_run;
-//				outfile << "," << meas_TE.first / num_run;
-//				outfile << "," << meas_FS.first / num_run;
+//				outfile << "," << meas_ENS_NDT.first / num_run;
+//				outfile << "," << meas_BOS.first / num_run;
+//				outfile << "," << meas_Filter_Sort.first / num_run;
+//				outfile << "," << meas_Filter_Sort_p.first / num_run;
 //				outfile << std::endl;
 //			}
 //		}
@@ -252,17 +252,94 @@
 //	outfile << num_obj << "," << num_rank << "," << (double)(eta_c / 30) / 50 << "," << (double)(eta_f / 30) / 50 << std::endl;
 //}
 
+std::vector<std::vector<double>> generate_filter_sort_worst_case(int n) {
+    n = 3 * (n / 3);
+    std::vector<std::vector<double>> rv;
+    //for (double i = 1; i <= n; i += 3) {
+    //    rv.push_back({2 * i, 0});
+    //    rv.push_back({i, i});
+    //    rv.push_back({0, 2 * i});
+    //}
+	//for (double i = 1; i <= n; i += 4) {
+	//	rv.push_back({ 3 * i, 0, 0 });
+	//	rv.push_back({ i, i ,i });
+	//	rv.push_back({ 0, 3 * i, 0 });
+	//	rv.push_back({ 0, 0, 3 * i });
+	//}
+	for (double i = 1; i <= n; i += 5) {
+		rv.push_back({ 4 * i, 0, 0, 0 });
+		rv.push_back({ i, i ,i, i });
+		rv.push_back({ 0, 4 * i, 0, 0 });
+		rv.push_back({ 0, 0, 4 * i, 0 });
+		rv.push_back({ 0, 0, 0, 4 * i });
+	}
+    return rv;
+}
+
+//int main(int argc, char *argv[]) {
+//    std::vector<std::vector<double>> data;
+//	std::vector<int> rank, rank_1;
+//	if (argc > 2 && !strcmp("filter-worst", argv[1])) {
+//        //data = generate_filter_sort_worst_case(atoi(argv[2]));
+//		NS::benchmark1 generator(atoi(argv[2]), 14, 0.5);
+//		generator.update_data();
+//		data = generator.get_data();
+//	} else {
+//    	NS::benchmark2 generator(10000,3,8,0.5);
+//	    generator.update_data();
+//	    data = generator.get_data();
+//	}
+//	std::pair<int, int> meas({ 0,0 }), meas_1({ 0,0 });
+//	//int numTask(4);
+//	//int numTask(atoi(argv[1]));
+//	NS::T_ENS(data, rank, meas);
+//	NS::fast_sort(data, rank_1, meas_1);
+//	//std::cout << "Time:\t" << meas_1.first << std::endl;
+//	//NS::filter_sort(data, rank, meas);
+//	//NS::filter_sort_p(numTask, data, rank_1, meas_1);
+//	std::cout << (rank == rank_1 ? "yes" : "no") << std::endl;
+//	//std::cout << "filter_sort:\t" << meas.first << std::endl;
+//	//std::cout << "Comparison:\t" << meas_1.first << std::endl;
+//	return 0;
+//}
+
 int main() {
-	NS::benchmark2 generator(10000,3,8,0.5);
-	generator.update_data();
-	std::vector<std::vector<double>> data(generator.get_data());
-	std::vector<int> rank, rank_1;
-	std::pair<int, int> meas({ 0,0 }), meas_1({ 0,0 });
-	int numTask(1);
-	NS::filter_sort(data, rank, meas);
-	NS::filter_sort_p(numTask, data, rank_1, meas_1);
-	std::cout << (rank == rank_1 ? "yes" : "no") << std::endl;
-	std::cout << "Filter Sort:\t" << meas.first << std::endl;
-	std::cout << "Comparison:\t" << meas_1.first << std::endl;
+	std::vector<int> nums_thrd({ 1,2,4,8,16 });
+	std::vector<int> nums_sol({ 10000 });
+	std::vector<int> nums_obj({ 2,4,6,8 });
+	std::vector<int> nums_rank({ 1,2,3,4,5,6,7,8 });
+	const int num_run(1);
+
+	std::ofstream outfile;
+	outfile.open("result/ComparisonBetweenAlgorithms/parallel_speedup.csv");
+	outfile << "N,M,R,Num thrd,FNS,Filter Sort,DCNS-BSS" << std::endl;
+
+	for (int num_sol : nums_sol) {
+		for (int num_obj : nums_obj) {
+			for (int num_rank : nums_rank) {
+				for (int num_thrd : nums_thrd) {
+					std::cout << "benchmark2_sol" << num_sol << "_obj" << num_obj << "_fro" << num_rank << "_thrd" << num_thrd << std::endl;
+					outfile << num_sol << "," << num_obj << "," << num_rank << "," << num_thrd;
+					NS::benchmark2 generator(num_sol, num_obj, num_rank, 0.5);
+					std::pair<int, int> meas_fast_sort_p({ 0,0 }), meas_filter_sort_p(0, 0), meas_DCNS_p({ 0,0 });
+					std::vector<int> rank_fast_sort_p(num_sol), rank_filter_sort_p(num_sol), rank_DCNS_p(num_sol);
+					std::vector<std::vector<double>> data;
+					for (int runID = 0; runID < num_run; ++runID) {
+						generator.read_data(data, runID);
+						NS::fast_sort_p(num_thrd, data, rank_fast_sort_p, meas_fast_sort_p);
+						NS::filter_sort_p(num_thrd, data, rank_filter_sort_p, meas_filter_sort_p);
+						NS::DCNS_p(num_thrd, data, rank_DCNS_p, meas_DCNS_p);
+					}
+					outfile << "," << meas_fast_sort_p.first / num_run;
+					outfile << "," << meas_filter_sort_p.first / num_run;
+					outfile << "," << meas_DCNS_p.first / num_run;
+					outfile << std::endl;
+				}
+			}
+		}
+	}
+	
+	outfile.close();
+
 	return 0;
 }

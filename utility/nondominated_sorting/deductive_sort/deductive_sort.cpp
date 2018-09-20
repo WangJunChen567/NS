@@ -13,6 +13,7 @@ namespace NS {
 
 		const int N = data.size(); // size of data
 		if (N == 0) return;
+		if (rank.size() != N) rank.resize(N);
 		const int M = data.front().size(); // number of objective
 		int x = 0; // front number
 		int f = 0; // number sorted

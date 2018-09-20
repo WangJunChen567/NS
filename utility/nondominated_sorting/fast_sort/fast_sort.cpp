@@ -19,7 +19,10 @@ namespace NS {
 		const std::size_t objsnum(data.front().size());
 		std::vector<int> rank_(popsize);
 		std::vector<int> count(popsize);
+
 		std::vector<std::vector<int>> cset(popsize, std::vector<int>(popsize));
+
+
 		for (int i = 0; i < popsize; i++) {
 			rank[i] = -1;
 		}
@@ -74,8 +77,6 @@ namespace NS {
 	int fast_sort_p(int numTask, const std::vector<std::vector<double>>& data, std::vector<int>& rank, std::pair<int, int>& measurement)
 	{
 		std::chrono::time_point<std::chrono::system_clock> Total_start_time;
-		std::chrono::microseconds Total_time_cost;
-		Total_time_cost = Total_time_cost.zero();
 		int NumComp(0);
 		Total_start_time = std::chrono::system_clock::now();
 
@@ -86,10 +87,15 @@ namespace NS {
 		const std::size_t objsnum(data.front().size());
 		std::vector<int> rank_(popsize);
 		std::vector<int> count(popsize);
-		std::vector<std::vector<int>> cset(popsize, std::vector<int>(popsize));
-		for (int i = 0; i < popsize; i++) {
-			rank[i] = -1;
+
+		std::vector<std::vector<int>> cset;
+		cset.resize(popsize);
+		for (auto& row : cset) {
+			row.reserve(popsize);
 		}
+
+		rank.assign(popsize, -1);
+
 		int TaskSize = popsize;
 		if (numTask > TaskSize) numTask = TaskSize;
 		std::vector<std::thread> thrd;
@@ -100,6 +106,8 @@ namespace NS {
 			thrd.push_back(std::thread(ParallelCompare, popsize, std::move(ks), std::cref(data), std::ref(rank_), std::ref(count), std::ref(cset)));
 		}
 		for (auto&t : thrd) t.join();
+
+
 		int m_curRank = 0;
 		std::vector<int> rank2(popsize);
 		while (1)
@@ -142,7 +150,7 @@ namespace NS {
 						rank_[k]++;
 					}
 					else if (compare_result.first == OFEC::dominationship::Dominated) {//*data[k]>*data[j]
-						cset[k][count[k]] = j;
+						cset[k].push_back(j);
 						count[k]++;
 					}
 				}

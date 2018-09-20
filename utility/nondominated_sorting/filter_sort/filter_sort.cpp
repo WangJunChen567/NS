@@ -1,5 +1,4 @@
 #include "filter_sort.h"
-#include "../../functional.h"
 #include "../merge_sort.h"
 #include <limits.h>
 #include <fstream>
@@ -56,7 +55,7 @@ namespace NS {
 			}
 		}
 		std::vector<int> f(N); // sequence of solution sorted by "s"
-		OFEC::quick_sort(s, N, f);
+		OFEC::merge_sort(s, N, f);
 		List List_f; // same as "f" but in form of List
 		for (const int i : f)
 			add_in_List_seq[i].push_back(List_f.push_back(i));
@@ -311,7 +310,7 @@ namespace NS {
 			}
 		}
 		std::vector<int> SeqBySumVals(N); // sequence of solution sorted by sum of all single objective sequence numbers
-		OFEC::quick_sort(SumVals, N, SeqBySumVals);
+		OFEC::merge_sort(SumVals, N, SeqBySumVals);
 		List SeqBySumVals_Lists; // Same as SeqByMinVals but in form of LS_list
 		for (const int SolIndex : SeqBySumVals)
 			PosInObjLists[SolIndex].push_back(SeqBySumVals_Lists.push_back(SolIndex));
@@ -454,7 +453,7 @@ namespace NS {
 			}
 		}
 		std::vector<int> SeqBySumVals(N); // sequence of solution sorted by sum of all single objective sequence numbers
-		OFEC::quick_sort(SumVals, N, SeqBySumVals);
+		OFEC::merge_sort(SumVals, N, SeqBySumVals);
 		List SeqBySumVals_Lists; // Same as SeqByMinVals but in form of LS_list
 		for (const int SolIndex : SeqBySumVals)
 			PosInObjLists[SolIndex].push_back(SeqBySumVals_Lists.push_back(SolIndex));
