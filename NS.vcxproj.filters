@@ -102,7 +102,9 @@
     <ClInclude Include="utility\nondominated_sorting\DCNS_BSS\DCNS_BSS.h">
       <Filter>utility\nondominated_sorting\DCNS_BSS</Filter>
     </ClInclude>
-    <ClInclude Include="utility\nondominated_sorting\list.h" />
+    <ClInclude Include="utility\nondominated_sorting\list.h">
+      <Filter>utility\nondominated_sorting</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="utility\random\extreal.cpp">
